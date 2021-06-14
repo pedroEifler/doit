@@ -16,7 +16,11 @@ export default {
   data() {
     return {
       doits: [],
-      doit: { marcado: false },
+      doit: {
+        id: null,
+        titulo: "",
+        marcado: false,
+      },
     };
   },
 
