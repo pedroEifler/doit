@@ -4,8 +4,8 @@
       <div class="columns">
         <a href="#" class="col-mx-auto text-center text-bold h1">Doit!</a>
       </div>
-      <div class="columns mt-2 pt-2">
-        <form class="col-mx-auto" @submit.prevent="adicionar(doit)">
+      <div class="columns mt-2 pt-2 mb-2">
+        <form class="col-mx-auto" @submit="adicionar(doit)">
           <div class="input-group">
             <input
               type="text"
@@ -24,6 +24,8 @@
         :key="d.id"
         @toggle="marcar"
         @click="deletar"
+        @editar="editar"
+        @editando="db"
         :doit="d"
       ></doit>
     </div>
@@ -52,6 +54,7 @@ export default {
         id: null,
         titulo: "",
         marcado: false,
+        editando: false,
       },
     };
   },
@@ -81,10 +84,13 @@ export default {
 
     async adicionar(doit) {
       try {
-        console.log("Oi");
-        await adicionar(doit);
-        this.listarTodos();
-        this.doit = "";
+        if (this.doitValido(doit)) {
+          await adicionar(doit);
+          this.listarTodos();
+          this.doit.titulo = "";
+        }
+
+        console.log(this.doit);
       } catch (error) {
         alert("Não foi possivel adicionar essa tarefa.");
       }
@@ -92,6 +98,8 @@ export default {
 
     async editar(doit) {
       try {
+        console.log(doit);
+        doit.editando = false;
         await editar(doit);
         this.listarTodos();
       } catch (error) {
@@ -115,6 +123,16 @@ export default {
       } catch (error) {
         alert("Não foi possivel deletar essa tarefa.");
       }
+    },
+
+    doitValido(doit) {
+      console.log(doit);
+      if (doit.titulo) return true;
+      return alert("Você não quer fazer nada?");
+    },
+
+    async db(doit) {
+      doit.editando = !doit.editando;
     },
   },
 };

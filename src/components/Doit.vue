@@ -13,10 +13,19 @@
           </label>
         </div>
         <div class="card-body">
-          <span>
-            {{ doit.titulo }}
+          <span v-if="doit.editando">
+            <input
+              v-model="doit.titulo"
+              @keydown.enter="$emit('editar', doit)"
+            />
           </span>
+          <div @dblclick="$emit('editando', doit)" v-else>
+            <span>
+              {{ doit.titulo }}
+            </span>
+          </div>
         </div>
+
         <div @click="$emit('click', doit)" class="card-footer">
           <i class="icon icon-cross float-right m-1"></i>
         </div>
