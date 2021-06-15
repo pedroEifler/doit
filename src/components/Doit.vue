@@ -13,12 +13,16 @@
           </label>
         </div>
         <div class="card-body">
-          <span v-if="doit.editando">
-            <input
-              v-model="doit.titulo"
-              @keydown.enter="$emit('editar', doit)"
-            />
-          </span>
+          <div v-if="doit.editando">
+            <span>
+              <input
+                class="form-input"
+                v-model="doit.titulo"
+                @keydown.enter="$emit('editar', doit)"
+                @dblclick="$emit('editar', doit)"
+              />
+            </span>
+          </div>
           <div @dblclick="$emit('editando', doit)" v-else>
             <span>
               {{ doit.titulo }}
@@ -43,8 +47,7 @@ export default {
 </script>
 
 <style>
-#doit {
-  width: 500px;
-  margin: auto;
+.card-body input {
+  height: 24px;
 }
 </style>

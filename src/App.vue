@@ -1,11 +1,11 @@
 <template>
-  <div id="app text-center">
+  <div id="app">
     <div class="container">
       <div class="columns">
         <a href="#" class="col-mx-auto text-center text-bold h1">Doit!</a>
       </div>
       <div class="columns mt-2 pt-2 mb-2">
-        <form class="col-mx-auto" @submit="adicionar(doit)">
+        <form class="col-11" @submit="adicionar(doit)">
           <div class="input-group">
             <input
               type="text"
@@ -17,17 +17,19 @@
               Adicionar
             </button>
           </div>
+          <div class="mt-2 pt-2">
+            <doit
+              v-for="d in doits"
+              :key="d.id"
+              @toggle="marcar"
+              @click="deletar"
+              @editar="editar"
+              @editando="editando"
+              :doit="d"
+            ></doit>
+          </div>
         </form>
       </div>
-      <doit
-        v-for="d in doits"
-        :key="d.id"
-        @toggle="marcar"
-        @click="deletar"
-        @editar="editar"
-        @editando="db"
-        :doit="d"
-      ></doit>
     </div>
   </div>
 </template>
@@ -89,8 +91,6 @@ export default {
           this.listarTodos();
           this.doit.titulo = "";
         }
-
-        console.log(this.doit);
       } catch (error) {
         alert("Não foi possivel adicionar essa tarefa.");
       }
@@ -98,7 +98,6 @@ export default {
 
     async editar(doit) {
       try {
-        console.log(doit);
         doit.editando = false;
         await editar(doit);
         this.listarTodos();
@@ -126,12 +125,11 @@ export default {
     },
 
     doitValido(doit) {
-      console.log(doit);
       if (doit.titulo) return true;
       return alert("Você não quer fazer nada?");
     },
 
-    async db(doit) {
+    async editando(doit) {
       doit.editando = !doit.editando;
     },
   },
@@ -142,5 +140,9 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 #app {
   font-family: "Righteous", cursive;
+}
+#app form {
+  margin: auto;
+  max-width: 500px;
 }
 </style>
