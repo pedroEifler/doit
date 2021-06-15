@@ -1,5 +1,33 @@
 <template>
-  <div id="app"></div>
+  <div id="app text-center">
+    <div class="container">
+      <div class="columns">
+        <a href="#" class="col-mx-auto text-center text-bold h1">Doit!</a>
+      </div>
+      <div class="columns mt-2 pt-2">
+        <form class="col-mx-auto" @submit.prevent="adicionar(doit)">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-input input-lg"
+              placeholder="O que você quer fazer?"
+              v-model="doit.titulo"
+            />
+            <button class="btn btn-secondary input-group-btn btn-lg">
+              Adicionar
+            </button>
+          </div>
+        </form>
+      </div>
+      <doit
+        v-for="d in doits"
+        :key="d.id"
+        @toggle="marcar"
+        @click="deletar"
+        :doit="d"
+      ></doit>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -10,9 +38,13 @@ import {
   adicionar,
   deletar,
 } from "./services/api";
+import Doit from "./components/Doit";
 
 export default {
   name: "App",
+  components: {
+    Doit,
+  },
   data() {
     return {
       doits: [],
@@ -49,8 +81,10 @@ export default {
 
     async adicionar(doit) {
       try {
+        console.log("Oi");
         await adicionar(doit);
         this.listarTodos();
+        this.doit = "";
       } catch (error) {
         alert("Não foi possivel adicionar essa tarefa.");
       }
@@ -73,12 +107,22 @@ export default {
         alert("Não foi possivel deletar essa tarefa.");
       }
     },
+
+    async marcar(doit) {
+      try {
+        doit.marcado = !doit.marcado;
+        await this.editar(doit);
+      } catch (error) {
+        alert("Não foi possivel deletar essa tarefa.");
+      }
+    },
   },
 };
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 #app {
-  text-align: center;
+  font-family: "Righteous", cursive;
 }
 </style>
