@@ -1,34 +1,3 @@
 {
-  "doits": [
-    {
-      "id": 5,
-      "titulo": "Doit!",
-      "marcado": false,
-      "editando": false
-    },
-    {
-      "id": 6,
-      "titulo": "Adiconar",
-      "marcado": true,
-      "editando": false
-    },
-    {
-      "id": 7,
-      "titulo": "Editar",
-      "marcado": true,
-      "editando": false
-    },
-    {
-      "id": 8,
-      "titulo": "Deletar",
-      "marcado": true,
-      "editando": false
-    },
-    {
-      "id": 9,
-      "titulo": "Listar",
-      "marcado": true,
-      "editando": false
-    }
-  ]
+  "doits": []
 }
