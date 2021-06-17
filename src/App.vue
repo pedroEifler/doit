@@ -5,29 +5,32 @@
         <a href="#" class="col-mx-auto text-center text-bold h1">Doit!</a>
       </div>
       <div class="columns mt-2 pt-2 mb-2">
-        <form class="col-11" @submit="adicionar(doit)">
-          <div class="input-group">
+        <form class="col-11">
+          <div class="input-group has-icon-left">
+            <i title="Marcar todos" class="form-icon icon icon-arrow-down" @click.prevent="marcarTodos()"></i>
             <input
               type="text"
               class="form-input input-lg"
               placeholder="O que você quer fazer?"
               v-model="doit.titulo"
+              @keydown.enter.prevent="adicionar(doit)"
             />
-            <button class="btn btn-secondary input-group-btn btn-lg">
+            <button
+              @click.prevent="adicionar(doit)"
+              class="btn btn-secondary input-group-btn btn-lg"
+            >
               Adicionar
             </button>
           </div>
           <div class="mt-2 pt-2">
-            <doit
-              v-for="d in doits"
-              :key="d.id"
-              @toggle="marcar"
-              @click="deletar"
-              @editar="editar"
-              @editando="editando"
-              :doit="d"
-            ></doit>
+            <doit ref="doit"></doit>
           </div>
+          <button
+            class="btn btn-secondary btn-sm mt-2 float-right"
+            @click.prevent="deletarCompletos()"
+          >
+            Limpar doit completos
+          </button>
         </form>
       </div>
     </div>
@@ -35,13 +38,6 @@
 </template>
 
 <script>
-import {
-  listarTodos,
-  listarPorId,
-  editar,
-  adicionar,
-  deletar,
-} from "./services/api";
 import Doit from "./components/Doit";
 
 export default {
@@ -49,9 +45,9 @@ export default {
   components: {
     Doit,
   },
+
   data() {
     return {
-      doits: [],
       doit: {
         id: null,
         titulo: "",
@@ -60,77 +56,20 @@ export default {
       },
     };
   },
-
-  async created() {
-    this.listarTodos();
-  },
-
   methods: {
-    async listarTodos() {
-      try {
-        const { data } = await listarTodos();
-        this.doits = data;
-      } catch (error) {
-        alert("Não foi possivel buscar os dados.");
-      }
+    adicionar: function () {
+      this.$refs.doit.adicionar(this.doit);
+      this.doit.titulo = "";
+      const input = document.querySelector("#app input");
+      input.focus();
     },
 
-    async listarPorId(id) {
-      try {
-        const { data } = await listarPorId(id);
-        this.doits.push(data);
-      } catch (error) {
-        alert("Não foi possivel buscar os dados.");
-      }
+    deletarCompletos: function () {
+      this.$refs.doit.deletarCompletos();
     },
 
-    async adicionar(doit) {
-      try {
-        if (this.doitValido(doit)) {
-          await adicionar(doit);
-          this.listarTodos();
-          this.doit.titulo = "";
-        }
-      } catch (error) {
-        alert("Não foi possivel adicionar essa tarefa.");
-      }
-    },
-
-    async editar(doit) {
-      try {
-        doit.editando = false;
-        await editar(doit);
-        this.listarTodos();
-      } catch (error) {
-        alert("Não foi possivel editar essa tarefa.");
-      }
-    },
-
-    async deletar(doit) {
-      try {
-        await deletar(doit);
-        this.listarTodos();
-      } catch (error) {
-        alert("Não foi possivel deletar essa tarefa.");
-      }
-    },
-
-    async marcar(doit) {
-      try {
-        doit.marcado = !doit.marcado;
-        await this.editar(doit);
-      } catch (error) {
-        alert("Não foi possivel deletar essa tarefa.");
-      }
-    },
-
-    doitValido(doit) {
-      if (doit.titulo) return true;
-      return alert("Você não quer fazer nada?");
-    },
-
-    async editando(doit) {
-      doit.editando = !doit.editando;
+    marcarTodos: function () {
+      this.$refs.doit.marcarTodos();
     },
   },
 };
