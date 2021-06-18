@@ -46,7 +46,6 @@
             </span>
           </div>
         </div>
-
         <div @click="deletar(doit)" class="card-footer">
           <i class="icon icon-cross float-right m-1"></i>
         </div>
@@ -59,6 +58,12 @@
     >
       Limpar doit completos
     </button>
+    <span
+      class="label label-rounded label-primary m-2 p-1 pl-3"
+      v-show="doits.length > 0"
+    >
+      Contador: <span>{{ filtros.length }}</span>
+    </span>
   </div>
 </template>
 

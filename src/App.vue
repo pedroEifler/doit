@@ -78,7 +78,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 #app {
   font-family: "Righteous", cursive;
-  margin-top: 9%;
+  margin-top: 5%;
   transition: 300ms;
 }
 #app form {

@@ -1,3 +1,40 @@
 {
-  "doits": []
+  "doits": [
+    {
+      "id": 1,
+      "titulo": "Doit!",
+      "marcado": true,
+      "editando": false
+    },
+    {
+      "id": 2,
+      "titulo": "Adicionar",
+      "marcado": true,
+      "editando": false
+    },
+    {
+      "id": 3,
+      "titulo": "Editar",
+      "marcado": true,
+      "editando": false
+    },
+    {
+      "id": 4,
+      "titulo": "Filtrar",
+      "marcado": true,
+      "editando": false
+    },
+    {
+      "id": 5,
+      "titulo": "Deletar",
+      "marcado": true,
+      "editando": false
+    },
+    {
+      "id": 6,
+      "titulo": "Doit 2.0",
+      "marcado": false,
+      "editando": false
+    }
+  ]
 }

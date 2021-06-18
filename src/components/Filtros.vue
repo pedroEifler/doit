@@ -40,10 +40,10 @@ export default {
       return doits.filter((doit) => doit);
     },
     filtrarAtivos(doits) {
-      return doits.filter((doit) => doit.marcado === false);
+      return doits.filter((doit) => !doit.marcado);
     },
     filtrarCompletos(doits) {
-      return doits.filter((doit) => doit.marcado === true);
+      return doits.filter((doit) => doit.marcado);
     },
   },
 };
