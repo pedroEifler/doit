@@ -1,24 +1,20 @@
-# doit
+# Doit!
 
-## Project setup
+
+![DoitHome](https://user-images.githubusercontent.com/62551886/122581042-03282380-d02d-11eb-9aa3-4caa6b1c6481.png)
+
+
+### 1º Passo: Instalar dependências
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 2º Passo: Compilar base de desenvolvimento
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 3º Passo: Iniciar banco de dados
 ```
-npm run build
+npm run banco
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
