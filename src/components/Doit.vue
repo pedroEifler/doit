@@ -1,6 +1,7 @@
 <template>
   <div id="doit">
     <filtros
+      v-show="doits.length > 0"
       class="pt-2 pb-2"
       :doits="doits"
       @todos="filtrar"
@@ -15,14 +16,6 @@
     >
       <div class="d-flex">
         <div class="card-header">
-          <!--<label class="form-switch m-0">
-            <input
-              @click="marcar(doit)"
-              :checked="doit.marcado"
-              type="checkbox"
-            />
-            <i class="form-icon"></i>
-          </label>-->
           <label class="form-radio m-0 form-inline">
             <input
               type="radio"
@@ -42,7 +35,12 @@
               />
             </span>
           </div>
-          <div @dblclick="editando(doit)" v-else>
+          <div
+            class="limitar-texto"
+            :title="doit.titulo"
+            @dblclick="editando(doit)"
+            v-else
+          >
             <span>
               {{ doit.titulo }}
             </span>
@@ -54,6 +52,13 @@
         </div>
       </div>
     </div>
+    <button
+      class="btn btn-secondary btn-sm mt-2 float-right"
+      @click.prevent="deletarCompletos()"
+      v-show="doits.length > 0"
+    >
+      Limpar doit completos
+    </button>
   </div>
 </template>
 
@@ -157,7 +162,6 @@ export default {
         completos.forEach((doit) => {
           this.deletar(doit);
         });
-        //await deletarCompletos(completos);
         this.listarTodos();
       } catch (error) {
         alert("Não foi possivel deletar essa tarefa. " + error);
@@ -188,5 +192,11 @@ export default {
 <style>
 .card-body input {
   height: 24px;
+}
+.limitar-texto {
+  max-width: 330px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

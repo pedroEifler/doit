@@ -7,7 +7,11 @@
       <div class="columns mt-2 pt-2 mb-2">
         <form class="col-11">
           <div class="input-group has-icon-left">
-            <i title="Marcar todos" class="form-icon icon icon-arrow-down" @click.prevent="marcarTodos()"></i>
+            <i
+              title="Marcar todos"
+              class="form-icon icon icon-arrow-down"
+              @click.prevent="marcarTodos()"
+            ></i>
             <input
               type="text"
               class="form-input input-lg"
@@ -23,14 +27,8 @@
             </button>
           </div>
           <div class="mt-2 pt-2">
-            <doit ref="doit"></doit>
+            <doit ref="doit" @animacao="animacao"></doit>
           </div>
-          <button
-            class="btn btn-secondary btn-sm mt-2 float-right"
-            @click.prevent="deletarCompletos()"
-          >
-            Limpar doit completos
-          </button>
         </form>
       </div>
     </div>
@@ -64,12 +62,13 @@ export default {
       input.focus();
     },
 
-    deletarCompletos: function () {
-      this.$refs.doit.deletarCompletos();
-    },
-
     marcarTodos: function () {
       this.$refs.doit.marcarTodos();
+    },
+
+    animacao() {
+      const app = document.querySelector("#app");
+      app.className.add("animacao");
     },
   },
 };
@@ -79,6 +78,8 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 #app {
   font-family: "Righteous", cursive;
+  margin-top: 9%;
+  transition: 300ms;
 }
 #app form {
   margin: auto;
